@@ -1,7 +1,7 @@
-import NumResults from "./NumResults";
-import Search from "./Search";
+import { NumResults } from "./NumResults";
+import { Search } from "./Search";
 
-function Navbar() {
+export function Navbar() {
   return (
     <nav className="nav-bar">
       <div className="logo">
@@ -13,5 +13,3 @@ function Navbar() {
     </nav>
   );
 }
-
-export default Navbar;

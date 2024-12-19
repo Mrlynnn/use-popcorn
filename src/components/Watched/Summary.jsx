@@ -1,6 +1,6 @@
 import React from "react";
 
-function Summary() {
+export function Summary() {
   return (
     <div className="summary">
       <h2>Movies you watched</h2>
@@ -25,5 +25,3 @@ function Summary() {
     </div>
   );
 }
-
-export default Summary;
