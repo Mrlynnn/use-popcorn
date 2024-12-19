@@ -7,7 +7,7 @@ import Summary from "./Summary";
 import Movie from "./Movie";
 import Watched from "./Watched";
 import Error from "./Error";
-// 1 10 13
+
 // https://www.omdbapi.com/?apikey=${KEY}&s=${query}
 const tempMovieData = [
   {
