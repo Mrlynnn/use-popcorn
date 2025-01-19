@@ -5,9 +5,13 @@ import { List } from "../List/List";
 import { MovieItem } from "./MovieItem";
 import { Spinner } from "../Spinner";
 
-export function MovieBlock({ isLoading, isError, movies }) {
-  const [activeMovie, setActiveMovie] = useState();
-
+export function MovieBlock({
+  isLoading,
+  isError,
+  movies,
+  activeMovie,
+  setActiveMovie,
+}) {
   return (
     <Box>
       {isError && <Error />}
@@ -18,9 +22,9 @@ export function MovieBlock({ isLoading, isError, movies }) {
       )}
       <List className="list-movies">
         {movies &&
-          movies.map((item, ind) => (
+          movies.map((item) => (
             <MovieItem
-              key={ind}
+              key={item.imdbID}
               movie={item}
               isActive={activeMovie === item.imdbID ? true : false}
               setActiveMovie={setActiveMovie}

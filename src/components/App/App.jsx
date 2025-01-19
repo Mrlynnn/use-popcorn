@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useRef, useState } from "react";
 import { MovieBlock } from "../Movies";
 import { Navbar } from "../Nav";
@@ -58,6 +59,7 @@ export function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [movies, setIsMovies] = useState([]);
+  const [activeMovie, setActiveMovie] = useState();
   const abortController = useRef(null);
 
   async function searchHandler(value) {
@@ -95,8 +97,14 @@ export function App() {
     <>
       <Navbar onSearch={searchHandler} numResults={numResults} />
       <main className="main">
-        <MovieBlock isLoading={isLoading} isError={isError} movies={movies} />
-        <WatchedBlock />
+        <MovieBlock
+          isLoading={isLoading}
+          isError={isError}
+          movies={movies}
+          activeMovie={activeMovie}
+          setActiveMovie={setActiveMovie}
+        />
+        <WatchedBlock id={activeMovie} />
       </main>
     </>
   );

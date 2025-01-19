@@ -4,10 +4,10 @@ import { WatchedItem } from "./WatchedItem";
 import { Summary } from "./Summary";
 import { List } from "../List";
 
-export function WatchedBlock() {
+export function WatchedBlock({ id }) {
   return (
     <Box>
-      <Details />
+      {id && <Details id={id} />}
       <Summary />
       <List>
         <WatchedItem />
