@@ -1,20 +1,38 @@
-import React from "react";
-import { getMoviesDescription } from "../App/api";
+import React, { useState } from "react";
+import { getMovieDescription } from "../App/api";
+import { useEffect } from "react";
+import { Spinner } from "../Spinner";
 
 export function Details({ id }) {
-  // getMoviesDescription(id);
-  return (
+  const [description, setDescription] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    getMovieDescription(id).then((data) => {
+      setDescription(data);
+      setIsLoading(false);
+    });
+  }, [id]);
+
+  return isLoading ? (
+    <div className="spinner-wrapper">
+      <Spinner />
+    </div>
+  ) : (
     <div className="details">
       <header>
         <button className="btn-back">&larr;</button>
         <img src="https://m.media-amazon.com/images/M/MV5BMDFhNzU4MTMtYzZmNS00ZDEzLTg2MjQtYmUzZDA1ZWU4OTkzXkEyXkFqcGdeQXVyNDQ2MTMzODA@._V1_SX300.jpg" />
         <div className="details-overview">
-          <h2>title</h2>
-          <p>16 Jul 2010 &bull; 148 min</p>
-          <p>Action, Adventure, Sci-fi</p>
+          <h2>{description?.Title}</h2>
+          <p>
+            {description?.Released} &bull; {description?.Runtime}
+          </p>
+          <p>{description?.Genre}</p>
           <p>
             <span>⭐️</span>
-            8.9 IMDb rating
+            {description?.imdbRating} IMDb rating
           </p>
         </div>
       </header>
@@ -71,10 +89,10 @@ export function Details({ id }) {
         </div>
         <div className="details-overview">
           <p>
-            <em>activeMovie.Plot</em>
+            <em>{description?.Plot}</em>
           </p>
-          <p>Starring actors: activeMovie.Actors</p>
-          <p>Directed by: activeMovie.Director</p>
+          <p>Starring actors: {description?.Actors}</p>
+          <p>Directed by: {description?.Director}</p>
         </div>
       </section>
     </div>

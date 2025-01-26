@@ -8,10 +8,14 @@ export function WatchedBlock({ id }) {
   return (
     <Box>
       {id && <Details id={id} />}
-      <Summary />
-      <List>
-        <WatchedItem />
-      </List>
+      {!id && (
+        <>
+          <Summary />
+          <List>
+            <WatchedItem />
+          </List>
+        </>
+      )}
     </Box>
   );
 }
