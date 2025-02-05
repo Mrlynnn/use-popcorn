@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Box } from "../Box/Box";
-import { Error } from "../Error";
-import { List } from "../List/List";
+import { Box } from "../../Box/ui/Box";
+import { Error } from "../../Error/ui/Error";
+import { List } from "../../List/ui/List";
 import { MovieItem } from "./MovieItem";
-import { Spinner } from "../Spinner";
+import { Spinner } from "../../Spinner";
 
 export function MovieBlock({
   isLoading,
