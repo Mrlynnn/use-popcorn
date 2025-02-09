@@ -7,14 +7,14 @@ import { Spinner } from "../../Spinner";
 
 export function MovieBlock({
   isLoading,
-  isError,
+  error,
   movies,
   activeMovie,
   setActiveMovie,
 }) {
   return (
     <Box>
-      {isError && <Error />}
+      {error && <Error msg={error} />}
       {isLoading && (
         <div className="spinner-wrapper">
           <Spinner />

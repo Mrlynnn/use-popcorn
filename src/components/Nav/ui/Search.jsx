@@ -1,12 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
+import { useChangeInputValue } from "../model/useChangeInputValue";
 
 export function Search({ onSearch }) {
-  const [value, setValue] = useState("");
-
-  function changeHandler(e) {
-    setValue(e.target.value);
-    onSearch(e.target.value);
-  }
+  const { value, changeHandler } = useChangeInputValue(onSearch);
 
   return (
     <input

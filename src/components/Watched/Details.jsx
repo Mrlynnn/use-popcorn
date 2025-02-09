@@ -1,24 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { getMovieDescription } from "../App/api";
 import { Spinner } from "../Spinner";
 import { StarRating } from "../StarRating";
+import { Error } from "../Error";
+import { useGetMovieDescription } from "./module/useGetMovieDescription";
 
 export function Details({ id }) {
-  const [description, setDescription] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-    getMovieDescription(id).then((data) => {
-      setDescription(data);
-      setIsLoading(false);
-    });
-  }, [id]);
+  const { description, isLoading, errorMsg } = useGetMovieDescription(id);
 
   return isLoading ? (
     <div className="spinner-wrapper">
       <Spinner />
     </div>
+  ) : errorMsg ? (
+    <Error msg={errorMsg} />
   ) : (
     <div className="details">
       <header>
