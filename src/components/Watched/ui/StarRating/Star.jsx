@@ -3,15 +3,9 @@ import React, { useState } from "react";
 export function Star({ fill, onHover, ind, onMark }) {
   return (
     <svg
-      onMouseEnter={() => {
-        onHover(ind + 1);
-      }}
-      onMouseMove={() => {
-        onHover(0);
-      }}
-      onClick={() => {
-        onMark(ind + 1);
-      }}
+      onMouseEnter={() => onHover(ind + 1)}
+      onMouseLeave={() => onHover(0)}
+      onClick={() => onMark(ind + 1)}
       width="23px"
       height="23px"
       viewBox="0 0 24 24"

@@ -3,17 +3,29 @@ import { Details } from "./Details";
 import { WatchedItem } from "./WatchedItem";
 import { Summary } from "./Summary";
 import { List } from "../../List/ui/List";
+import { useState } from "react";
 
-export function WatchedBlock({ id }) {
+export function WatchedBlock({ id, onSetActiveMovie }) {
+  const [ratedMovies, setRatedMovies] = useState([]);
+
   return (
     <Box>
-      {id && <Details id={id} />}
+      {id && (
+        <Details
+          id={id}
+          onReset={onSetActiveMovie}
+          setRatedMovies={setRatedMovies}
+          ratedMovies={ratedMovies}
+        />
+      )}
 
       {!id && (
         <>
-          <Summary />
+          <Summary ratedMovies={ratedMovies} />
           <List>
-            <WatchedItem />
+            {ratedMovies?.map((movie) => (
+              <WatchedItem key={movie.id} movie={movie} />
+            ))}
           </List>
         </>
       )}

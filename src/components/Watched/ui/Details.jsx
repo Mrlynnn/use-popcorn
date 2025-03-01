@@ -1,10 +1,12 @@
-import { Spinner } from "../../Spinner";
 import { Error } from "../../Error";
+import { Spinner } from "../../Spinner";
 import { useGetMovieDescription } from "../module/useGetMovieDescription";
 import { StarRating } from "./StarRating/StarRating";
+import { useMovieRating } from "../module/useMovieRating";
 
-export function Details({ id }) {
+export function Details({ id, onReset, ratedMovies, setRatedMovies }) {
   const { description, isLoading, errorMsg } = useGetMovieDescription(id);
+  const { rating, movieIndex, setRating } = useMovieRating(id, ratedMovies);
 
   return isLoading ? (
     <div className="spinner-wrapper">
@@ -15,8 +17,10 @@ export function Details({ id }) {
   ) : (
     <div className="details">
       <header>
-        <button className="btn-back">&larr;</button>
-        <img src="https://m.media-amazon.com/images/M/MV5BMDFhNzU4MTMtYzZmNS00ZDEzLTg2MjQtYmUzZDA1ZWU4OTkzXkEyXkFqcGdeQXVyNDQ2MTMzODA@._V1_SX300.jpg" />
+        <button onClick={() => onReset(null)} className="btn-back">
+          &larr;
+        </button>
+        <img src={description?.Poster} />
         <div className="details-overview">
           <h2>{description?.Title}</h2>
           <p>
@@ -34,11 +38,36 @@ export function Details({ id }) {
 
       <section>
         <div className="rating">
-          <StarRating />
-          <button className="btn-add">+ Add to list</button>
-          <p>
-            You rated with movie 7 <span>⭐️</span>
-          </p>
+          {movieIndex === -1 && (
+            <StarRating rating={rating} setRating={setRating} />
+          )}
+
+          {!!rating && movieIndex === -1 && (
+            <button
+              onClick={() => {
+                setRatedMovies((oldMovies) => [
+                  ...oldMovies,
+                  {
+                    id,
+                    rating,
+                    title: description.Title,
+                    imdbRating: description.imdbRating,
+                    runtime: description.Runtime,
+                    poster: description.Poster,
+                  },
+                ]);
+              }}
+              className="btn-add"
+            >
+              + Add to list
+            </button>
+          )}
+          {movieIndex !== -1 && (
+            <p>
+              You rated with movie {ratedMovies[movieIndex]?.rating}
+              <span>⭐️</span>
+            </p>
+          )}
         </div>
         <div className="details-overview">
           <p>
